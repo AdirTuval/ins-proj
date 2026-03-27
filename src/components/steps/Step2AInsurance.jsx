@@ -4,7 +4,7 @@ import { motion } from 'framer-motion'
 import Tooltip from '../ui/Tooltip'
 import FileUpload from '../ui/FileUpload'
 
-export default function Step2AInsurance({ initialData, onNext }) {
+export default function Step2AInsurance({ initialData, onNext, onBack }) {
   const [uploadedFile, setUploadedFile] = useState(initialData.policyFile || null)
   const [isSmoker, setIsSmoker] = useState(initialData.isSmoker)
 
@@ -60,6 +60,14 @@ export default function Step2AInsurance({ initialData, onNext }) {
       animate={{ opacity: 1, x: 0, transition: { duration: 0.28, ease: [0.0, 0.0, 0.2, 1] } }}
       exit={{ opacity: 0, x: -40, transition: { duration: 0.18, ease: [0.4, 0.0, 1, 1] } }}
     >
+      <button
+        type="button"
+        onClick={onBack}
+        className="flex items-center gap-1 text-muted hover:text-foreground text-sm mb-4 transition-colors duration-150 cursor-pointer"
+      >
+        חזור →
+      </button>
+
       <div className="mb-5">
         <h2 className="text-2xl font-bold text-foreground mb-1">פרטי הפוליסה הקיימת</h2>
         <p className="text-muted text-sm">העלה את הפוליסה שלך, או ענה על השאלות הבאות</p>

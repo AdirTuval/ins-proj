@@ -5,6 +5,7 @@ import FloatingCTA from './components/ui/FloatingCTA'
 import Modal from './components/ui/Modal'
 import Step1BasicInfo from './components/steps/Step1BasicInfo'
 import Step2AInsurance from './components/steps/Step2AInsurance'
+import Step2BNoInsurance from './components/steps/Step2BNoInsurance'
 import StepFinal from './components/steps/StepFinal'
 
 const initialFormData = {
@@ -38,9 +39,17 @@ export default function App() {
     setFormData(merged)
 
     if (currentStep === 'step1') {
-      setCurrentStep(stepData.hasInsurance ? 'step2a' : 'final')
+      setCurrentStep(stepData.hasInsurance ? 'step2a' : 'step2b')
     } else {
       setCurrentStep('final')
+    }
+  }
+
+  const goPrev = () => {
+    if (currentStep === 'step2a' || currentStep === 'step2b') {
+      setCurrentStep('step1')
+    } else if (currentStep === 'final') {
+      setCurrentStep(formData.hasInsurance ? 'step2a' : 'step2b')
     }
   }
 
@@ -62,7 +71,7 @@ export default function App() {
               השוואה חינמית
             </span>
           </div>
-          <ProgressBar currentStep={currentStep} hasInsurance={formData.hasInsurance} />
+          <ProgressBar currentStep={currentStep} />
         </div>
       </header>
 
@@ -81,12 +90,22 @@ export default function App() {
               key="step2a"
               initialData={formData}
               onNext={goNext}
+              onBack={goPrev}
+            />
+          )}
+          {currentStep === 'step2b' && (
+            <Step2BNoInsurance
+              key="step2b"
+              initialData={formData}
+              onNext={goNext}
+              onBack={goPrev}
             />
           )}
           {currentStep === 'final' && (
             <StepFinal
               key="final"
               formData={formData}
+              onBack={goPrev}
             />
           )}
         </AnimatePresence>

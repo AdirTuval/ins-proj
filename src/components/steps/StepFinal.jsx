@@ -1,7 +1,7 @@
 import { useEffect } from 'react'
 import { motion } from 'framer-motion'
 
-export default function StepFinal({ formData }) {
+export default function StepFinal({ formData, onBack }) {
   useEffect(() => {
     // Serialize File object (not JSON-serializable natively)
     const dataToLog = {
@@ -24,6 +24,14 @@ export default function StepFinal({ formData }) {
       animate={{ opacity: 1, x: 0, transition: { duration: 0.28, ease: [0.0, 0.0, 0.2, 1] } }}
       exit={{ opacity: 0, x: -40, transition: { duration: 0.18, ease: [0.4, 0.0, 1, 1] } }}
     >
+      <button
+        type="button"
+        onClick={onBack}
+        className="flex items-center gap-1 text-muted hover:text-foreground text-sm mb-4 transition-colors duration-150 cursor-pointer"
+      >
+        חזור →
+      </button>
+
       <div className="bg-white rounded-2xl shadow-md border border-ins_border p-8 text-center">
 
         {/* Animated checkmark */}

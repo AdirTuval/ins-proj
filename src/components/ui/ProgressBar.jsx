@@ -1,17 +1,17 @@
-const STEPS_WITH_INSURANCE = [
+const STEPS = [
   { key: 'step1', label: 'פרטים בסיסיים' },
-  { key: 'step2a', label: 'פרטי ביטוח' },
+  { key: 'step2', label: 'פרטים נוספים' },
   { key: 'final', label: 'סיום' },
 ]
 
-const STEPS_WITHOUT_INSURANCE = [
-  { key: 'step1', label: 'פרטים בסיסיים' },
-  { key: 'final', label: 'סיום' },
-]
+function normalizeStep(step) {
+  if (step === 'step2a' || step === 'step2b') return 'step2'
+  return step
+}
 
-export default function ProgressBar({ currentStep, hasInsurance }) {
-  const steps = hasInsurance === false ? STEPS_WITHOUT_INSURANCE : STEPS_WITH_INSURANCE
-  const currentIndex = steps.findIndex((s) => s.key === currentStep)
+export default function ProgressBar({ currentStep }) {
+  const steps = STEPS
+  const currentIndex = steps.findIndex((s) => s.key === normalizeStep(currentStep))
 
   return (
     <nav aria-label="שלבי הטופס">
